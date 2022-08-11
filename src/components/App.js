@@ -28,6 +28,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [cards, setCards] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isStatusRegistration, setIsStatusRegistration] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   
   const history = useHistory();
@@ -83,17 +84,17 @@ function App() {
       });
   }
 
-  function handleRegister(data) {
+  function handleRegister(userInfo) {
     auth
-      .register(data)
+      .register(userInfo)
       .then(() => {
-        setUserEmail(data.data.email);
+        setIsStatusRegistration(true);
         handleInfoTooltip();
         history.push("/sign-in");
       })
       .catch((err) => {
         console.log(err);
-        setIsLoggedIn(false);
+        setIsStatusRegistration(false);
         handleInfoTooltip();
       });
   }
@@ -278,7 +279,7 @@ function App() {
         <InfoTooltip
           isPopupOpened={isInfoTooltipOpen}
           onClose={closeAllPopups}
-          isLoggedIn={isLoggedIn}
+          status={isStatusRegistration}
         />
         <ImagePopup
           isPopupOpened={isImagePopupOpen}
