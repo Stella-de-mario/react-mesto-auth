@@ -212,10 +212,11 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setImagePopupOpen(false);
+    setisInfoTooltipOpen(false);
+    setIsStatusRegistration({});
     // setConfirmationPopupOpen(false);
     setDeleteCard({});
-    setSelectedCard({});
-    setisInfoTooltipOpen(false);
+    setSelectedCard({});  
   }
 
   return (
