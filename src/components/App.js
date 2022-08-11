@@ -238,9 +238,9 @@ function App() {
             <Login onLogin={handleAuthorizer} />
             </div>
           </Route>
-          <Route>
+          {/* <Route>
             {isLoggedIn ? <Redirect to="/sign-in" /> : <Redirect to="/" />}
-          </Route>
+          </Route> */}
           <ProtectedRoute
             exact path="/"
             component={Main}
