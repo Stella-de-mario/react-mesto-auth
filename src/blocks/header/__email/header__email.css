@@ -1,5 +1,5 @@
 .header__email {
-    margin: 0 24px 0 0;
+    margin: 0;
     padding-top: 6px;
     font-style: normal;
     font-weight: 500;
@@ -8,10 +8,10 @@
     text-align: right;
     color: #fff; 
   }
-
+/* 
   @media screen and (min-width: 524px) {
     .header__email {
         display: block;
         margin: 0 0 14px;
     }
-}
+} */
