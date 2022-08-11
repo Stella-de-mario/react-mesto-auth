@@ -1,7 +1,6 @@
 .header__button-close {
     padding: 0;
     margin: 0;
-    padding-top: 6px;
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
@@ -9,9 +8,7 @@
     color: #A9A9A9;
     background-color: #000;
     cursor: pointer;
-    transition-property: opacity;
-    transition-duration: .2s;
-    transition-timing-function: linear;
+    transition: opacity 0.2s linear;
   }
     
   .header__button-close:hover {
