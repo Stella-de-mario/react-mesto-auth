@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Redirect, Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import api from "../utils/Api.js";
 import auth from "../utils/Auth.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
@@ -30,7 +30,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isStatusRegistration, setIsStatusRegistration] = useState(false);
   const [userEmail, setUserEmail] = useState("");
-  
+
   const history = useHistory();
 
   const isPopupOpened =
@@ -47,15 +47,15 @@ function App() {
     auth
       .checkToken(jwt)
       .then((data) => {
-        if(data) {
-        setUserEmail(data.data.email);
-        setIsLoggedIn(true);
-        history.push("/");
+        if (data) {
+          setUserEmail(data.data.email);
+          setIsLoggedIn(true);
+          history.push("/");
         } else {
           setIsLoggedIn(false);
-          localStorage.removeItem("jwt")
-      }
-    })
+          localStorage.removeItem("jwt");
+        }
+      })
       .catch((err) => console.log(err));
   }
 
@@ -106,13 +106,16 @@ function App() {
   }
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      return;
+    }
     Promise.all([api.getUserInfo(), api.getCards()])
       .then(([userInfo, cards]) => {
         setCurrentUser(userInfo);
         setCards(cards);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [isLoggedIn]);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -216,7 +219,7 @@ function App() {
     setIsStatusRegistration({});
     // setConfirmationPopupOpen(false);
     setDeleteCard({});
-    setSelectedCard({});  
+    setSelectedCard({});
   }
 
   return (
@@ -230,19 +233,20 @@ function App() {
         <Switch>
           <Route path="/sign-up">
             <div className="form">
-            <Register onRegister={handleRegister} />
+              <Register onRegister={handleRegister} />
             </div>
           </Route>
           <Route path="/sign-in">
             <div className="form">
-            <Login onLogin={handleAuthorizer} />
+              <Login onLogin={handleAuthorizer} />
             </div>
           </Route>
           {/* <Route>
             {isLoggedIn ? <Redirect to="/sign-in" /> : <Redirect to="/" />}
           </Route> */}
           <ProtectedRoute
-            exact path="/"
+            exact
+            path="/"
             component={Main}
             isLoggedIn={isLoggedIn}
             onEditProfile={handleEditProfileClick}
